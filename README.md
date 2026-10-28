@@ -15,14 +15,14 @@ Communicated and edited by **Boming Jia**
 
 ## Abstract
 
-Let $G$ be a connected complex reductive group, $\mathcal B$ its flag
-variety, and $\mathcal B_e$ the Springer fiber of a nilpotent element
-$e\in\operatorname{Lie}G$. Let $S$ be the torus associated with an
-$\mathfrak{sl}_2$-triple containing $e$. We prove that the image of the
+Let $`G`$ be a connected complex reductive group, $`\mathcal{B}`$ its flag
+variety, and $`\mathcal{B}_{e}`$ the Springer fiber of a nilpotent element
+$`e\in\mathrm{Lie}\,G`$. Let $`S`$ be the torus associated with an
+$`\mathfrak{sl}_{2}`$-triple containing $`e`$. We prove that the image of the
 restriction map on complex cohomology
-$H^*(\mathcal B^S)\to H^*(\mathcal B_e^S)$ between the $S$-fixed point
-loci is the subalgebra of invariants under the component group $A(e)$
-of the centralizer of $e$ in $G$. This proves a conjecture of Hoang,
+$`H^{*}(\mathcal{B}^{S})\to H^{*}(\mathcal{B}_{e}^{S})`$ between the $`S`$-fixed point
+loci is the subalgebra of invariants under the component group $`A(e)`$
+of the centralizer of $`e`$ in $`G`$. This proves a conjecture of Hoang,
 Krylov, and Matvieievskyi. The argument uses global invariant cycles.
 As an application, we give another proof of the known surjectivity
 for general linear groups.
