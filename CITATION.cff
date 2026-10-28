@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this manuscript, please cite it using the metadata below."
 title: "A Restriction Theorem for Springer Fibers"
-version: "1.0.0"
+version: "1.0.1"
 date-released: 2026-10-28
 url: "https://github.com/tritonereid/springer-fiber-restriction"
 authors:
@@ -12,6 +12,6 @@ preferred-citation:
   authors:
     - name: "GPT-6 Astra"
   year: 2026
-  version: "1.0.0"
-  url: "https://github.com/tritonereid/springer-fiber-restriction/releases/tag/v1.0.0"
+  version: "1.0.1"
+  url: "https://github.com/tritonereid/springer-fiber-restriction/releases/tag/v1.0.1"
   notes: "Communicated and edited by Boming Jia."

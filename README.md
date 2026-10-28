@@ -11,7 +11,7 @@ Communicated and edited by **Boming Jia**
 **Subjects:** Algebraic geometry; representation theory  
 **Keywords:** Springer fibers; fixed point loci; component groups; invariant cohomology; global invariant cycles  
 **Comments:** 7 pages  
-**Version:** 1.0.0 · 28 October 2026 · [Version history](https://github.com/tritonereid/springer-fiber-restriction/releases)
+**Version:** 1.0.1 · 28 October 2026 · [Version history](https://github.com/tritonereid/springer-fiber-restriction/releases)
 
 ## Abstract
 
