@@ -1,0 +1,415 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in,headheight=16pt]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{needspace}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{A Restriction Theorem for Springer Fibers}
+\cfoot{\thepage}
+
+\newtheoremstyle{paperplain}
+    {6pt plus 1pt minus 1pt}{6pt plus 1pt minus 1pt}
+    {\itshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{paperplain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\AddToHook{env/theorem/before}{\ifnum\value{section}=1\relax\Needspace{4\baselineskip}\else\Needspace{7\baselineskip}\fi}
+\AddToHook{env/proposition/before}{\Needspace{7\baselineskip}}
+\AddToHook{env/lemma/before}{\Needspace{6\baselineskip}}
+\AddToHook{env/corollary/before}{\Needspace{6\baselineskip}}
+\AddToHook{cmd/section/before}{\Needspace{8\baselineskip}}
+
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\GL}{GL}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\g}{\mathfrak g}
+\newcommand{\B}{\mathcal B}
+
+\hypersetup{
+    pdftitle={A Restriction Theorem for Springer Fibers},
+    pdfauthor={GPT-6 Astra},
+    pdfsubject={Restriction maps and invariant cohomology of fixed point loci in Springer fibers}
+}
+\title{A Restriction Theorem for Springer Fibers}
+\author{GPT-6 Astra}
+\date{}
+\setlength{\droptitle}{-4.25em}
+\pretitle{\centering\LARGE}
+\posttitle{\par}
+\preauthor{\centering\large}
+\postauthor{\par\vspace{0.5em}
+    {\fontsize{11}{13}\selectfont\itshape Communicated and edited by Boming Jia\par}}
+\predate{}
+\postdate{}
+\renewcommand{\maketitlehookb}{\vspace{2.25em}}
+\renewcommand{\maketitlehookd}{\vspace{-0.75em}}
+\emergencystretch=1.5em
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Let $G$ be a connected complex reductive group, $\B$ its flag variety, and $\B_e$ the Springer fiber of a nilpotent element $e\in\Lie G$. Let $S$ be the torus associated with an $\mathfrak{sl}_2$-triple containing $e$. We prove that the image of the restriction map on complex cohomology $H^*(\B^S)\to H^*(\B_e^S)$ between the $S$-fixed point loci is the subalgebra of invariants under the component group $A(e)$ of the centralizer of $e$ in $G$. This proves a conjecture of Hoang, Krylov, and Matvieievskyi. The argument uses global invariant cycles. As an application, we give another proof of the known surjectivity for general linear groups.
+\end{abstract}
+
+\section{Introduction}
+
+Let $G$ be a connected complex reductive group with Lie algebra $\g$ and flag variety $\B$ of Borel subalgebras of $\g$. Write $\Ad$ for the adjoint action of $G$ on $\g$ and its induced action on $\B$. For $x\in\g$, let $Z_G(x)=\{g\in G\mid\Ad(g)x=x\}$ be its centralizer in $G$.
+
+Fix a nilpotent element $e\in\g$, an $\mathfrak{sl}_2$-triple $(e,h,f)$, and the associated cocharacter $\lambda\colon\C^\times\to G$, with $d\lambda(1)=h$. Set
+\[
+    S=\lambda(\C^\times),\qquad A(e)=Z_G(e)/Z_G(e)^\circ,
+\]
+where $Z_G(e)^\circ$ is the identity component of $Z_G(e)$.
+For $e=0$, we take the trivial triple and cocharacter. Since $\Ad(\lambda(t))e=t^2e$, the torus $S$ preserves the Springer fiber
+\[
+    \B_e=\{\mathfrak b\in\B\mid e\in\mathfrak b\}.
+\]
+Throughout the paper, $H^*(X)$ denotes singular cohomology with coefficients in $\C$. For a group $H$ acting on a variety $X$, write $X^H$ for its fixed point locus. A superscript $H$ on a cohomology group denotes the subspace of $H$-invariant classes. Let $i\colon\B_e^S\hookrightarrow\B^S$ be the inclusion. The centralizer of the triple acts on $\B_e^S$, and its action on cohomology factors through $A(e)$. We describe this action in Section~\ref{section-centralizers}.
+
+The following theorem proves \cite[Conjecture~10.10]{HKM}. Some classical cases were established in \cite[Lemma~10.9]{HKM}.
+
+\begin{theorem}\label{main}
+    The pullback map $i^*\colon H^*(\B^S)\to H^*(\B_e^S)$ satisfies
+    \[
+        \im(i^*)
+        =H^*(\B_e^S)^{A(e)}.
+    \]
+\end{theorem}
+
+In particular, $i^*$ is surjective if and only if $A(e)$ acts trivially on $H^*(\B_e^S)$. Since each connected component of $\B^S$ is a flag variety, the invariant algebra is generated in degrees zero and two.
+
+For $G=\GL_n$, the group of invertible $n\times n$ complex matrices with $n\ge1$, the component group $A(e)$ is trivial, so Theorem~\ref{main} recovers the known surjectivity of $i^*$ (Corollary~\ref{type-a-surjective}). This also follows from the classical restriction theorem for ordinary Springer fibers \cite{DCP,Tanisaki}, by equivariant formality and localization. Outside type $A$, the image of $H^*(\B)\to H^*(\B_e)$ can be a proper subalgebra of $H^*(\B_e)^{A(e)}$ \cite[Warning~10.19]{HKM}.
+
+We apply Deligne's global invariant cycle theorem \cite{Deligne} to the incidence family of De Concini, Lusztig, and Procesi \cite[Sections~2.1--2.4 and~3.7]{DLP}. The intersections of $\B_e^S$ with the connected components of $\B^S$ also occur in the decomposition of nilpotent Hessenberg cohomology as $A(e)$-modules studied by Precup and Sommers \cite[Section~3.2 and Corollary~3.6]{PS}.
+
+At positive admissible slopes, Oblomkov and Yun identify the image of ambient flag cohomology with the invariants under the stabilizer component group and braid-group monodromy for Hessenberg varieties arising from regular semisimple homogeneous affine Springer fibers \cite[Theorem~5.5.1(1)]{OY}. Their proof uses the decomposition theorem and contraction of the incidence family. We apply global invariant cycles over the open orbit $Z_G(h)\cdot e$.
+
+\vspace{2em}
+\section{Fixed flags and the incidence family}
+\label{section-centralizers}
+\label{section-incidence}
+
+All Springer fibers and fixed point varieties are endowed with their reduced scheme structures.
+
+For a group element or subgroup, $Z_G(-)$ denotes its centralizer under conjugation. For several arguments, it denotes their common centralizer. We write $H^\circ$ for the identity component of an algebraic group $H$.
+
+Let a complex algebraic group $H$ act on a variety $X$, and write $m_a\colon X\to X$ for the automorphism induced by $a\in H$. We let $a$ act on cohomology by $m_{a^{-1}}^*$. The complex Lie group $H^\circ(\C)$ is path connected. For $a\in H^\circ$, a path from $1$ to $a$ induces a homotopy between $\operatorname{id}_X$ and $m_a$. Hence $H^\circ$ acts trivially on $H^*(X)$, and the cohomological action of $H$ factors through $H/H^\circ$.
+
+For any connected component $F$ of $\B^S$, put $F_e=F\cap\B_e^S$ and write $i_F\colon F_e\hookrightarrow F$ for the inclusion.
+
+Retain the triple $(e,h,f)$ and cocharacter $\lambda$ from the introduction. For $j\in\Z$, set
+\[
+    \g(j)=\{x\in\g\mid[h,x]=jx\},\qquad
+    L=Z_G(S)=Z_G(h),\qquad Z_e=Z_G(e,h,f).
+\]
+Here $Z_G(S)$ consists of the elements of $G$ commuting with every element of $S$, and $Z_G(e,h,f)=Z_G(e)\cap Z_G(h)\cap Z_G(f)$. The Levi subgroup $L\subset G$ has Lie algebra $\g(0)$ \cite{Humphreys}. For $e=0$, these conventions give $L=Z_e=G$ and $\g(2)=0$.
+
+\begin{lemma}\label{sl2}
+    Let $M$ be a finite-dimensional $\mathfrak{sl}_2$-module and write $M_j=\{v\in M\mid hv=jv\}$ for $j\in\Z$. Then
+    \[
+        e(M_0)=M_2,\qquad \ker(e)\cap M_{-2}=0,
+    \]
+    and every weight of $\ker(e)$ is nonnegative.
+\end{lemma}
+
+\begin{proof}
+    Decompose $M$ into irreducible modules. On each summand, the kernel of $e$ is the highest-weight line. Moreover, $e$ maps the weight-zero space onto the weight-two space whenever the latter is nonzero.
+\end{proof}
+
+\begin{lemma}\label{orbit}
+    The orbit $L\cdot e$ is open in $\g(2)$, and the centralizer $Z_L(e)$ of $e$ in $L$ equals $Z_e$.
+\end{lemma}
+
+\begin{proof}
+    By Lemma~\ref{sl2}, the differential at $1$ of the orbit map $L\to\g(2)$, $g\mapsto\Ad(g)e$, is the surjection $\g(0)\to\g(2)$, $a\mapsto[a,e]$. Hence $L\cdot e$ is open in $\g(2)$.
+
+    Writing $\ad(e)=[e,-]$, we have, for $g\in Z_L(e)$,
+    \[
+        \Ad(g)f-f\in\g(-2)\cap\ker(\ad e)=0.
+    \]
+    Thus $g$ centralizes the triple, and the reverse inclusion is immediate.
+\end{proof}
+
+\begin{proposition}\label{component-group}
+    The inclusion $Z_e\hookrightarrow Z_G(e)$ induces an isomorphism
+    \[
+        Z_e/Z_e^\circ\xrightarrow{\sim}A(e).
+    \]
+\end{proposition}
+
+\begin{proof}
+    Choose a faithful representation $G\hookrightarrow\GL(V)$ on a finite-dimensional complex vector space $V$, where $\GL(V)$ is its group of linear automorphisms. Identify $\g$ with its image in the endomorphism algebra $\End(V)$. For $g\in Z_G(e)$, both $g$ and $g^{-1}$ lie in the kernel of $[e,-]$ on $\End(V)$. By Lemma~\ref{sl2}, their weight decompositions under conjugation by $\lambda$ have no negative-weight components. Thus the two maps
+    \[
+        t\longmapsto\lambda(t)g\lambda(t)^{-1},\qquad
+        t\longmapsto\lambda(t)g^{-1}\lambda(t)^{-1}
+    \]
+    extend regularly to $t=0$. The two limiting matrices are inverse to one another and belong to the closed subgroup $G\subset \GL(V)$. Denote the first limit by $r(g)$. Since $Z_G(e)$ is closed and stable under conjugation by $\lambda(t)$, we have $r(g)\in Z_G(e)$. The matrix $r(g)$ has weight zero, so it centralizes $S$. By Lemma~\ref{orbit}, we obtain a retraction
+    \[
+        r\colon Z_G(e)\longrightarrow Z_e,\qquad
+        r(g)=\lim_{t\to0}\lambda(t)g\lambda(t)^{-1}.
+    \]
+    The map is algebraic, being the restriction of the weight-zero projection on $\End(V)$, and fixes $Z_e$ pointwise.
+
+    The extended map from the affine line $\mathbb A^1$ to $Z_G(e)$ takes $1$ to $g$ and $0$ to $r(g)$, so these elements lie in the same connected component. Thus every connected component of $Z_G(e)$ meets $Z_e$. Conversely, if $c\in Z_e\cap Z_G(e)^\circ$, then $c=r(c)$ belongs to the connected set $r(Z_G(e)^\circ)$ containing the identity. Hence
+    \[
+        Z_e\cap Z_G(e)^\circ=Z_e^\circ,
+    \]
+    proving the assertion.
+\end{proof}
+
+The triple centralizer $Z_e$ preserves $\B_e^S$, and its cohomological action factors through $Z_e/Z_e^\circ\simeq A(e)$. This is the action used in Theorem~\ref{main}. The inclusion $\B_e^S\hookrightarrow\B_e$ is $Z_e$-equivariant, so restriction is compatible with the usual $A(e)$-action on $H^*(\B_e)$.
+
+\begin{lemma}\label{fixed-flags}
+    Every connected component of $\B^S$ is an orbit of the Levi subgroup $L$. If $B_0$ is the Borel subgroup corresponding to $\mathfrak b_0\in\B^S$, then
+    \[
+        L\cdot\mathfrak b_0\simeq L/(L\cap B_0),
+    \]
+    where $L\cap B_0$ is a Borel subgroup of $L$.
+\end{lemma}
+
+\begin{proof}
+    Fix a maximal torus $T\subset G$ containing $S$. A Borel subgroup normalized by $S$ contains $S$, since Borel subgroups are self-normalizing. Conjugacy of maximal tori in $L$ shows that every such subgroup is $L$-conjugate to a Borel subgroup containing $T$. There are only finitely many Borel subgroups containing $T$, so $\B^S$ has finitely many $L$-orbits. If $T\subset B_0$, then $L\cap B_0$ is the Borel subgroup of $L$ determined by the corresponding positive roots \cite{Humphreys}. Each orbit is therefore a projective flag variety. The finitely many orbits are closed and connected, hence are precisely the connected components.
+\end{proof}
+
+Fix a connected component $F\subset\B^S$ and a point $\mathfrak b_0\in F$, and let $B_0$ be the corresponding Borel subgroup. Set $B_L=L\cap B_0$, a Borel subgroup of $L$. Consider
+\[
+    \mathcal E_F
+        =\{(x,\mathfrak b)\in\g(2)\times F\mid x\in\mathfrak b\},
+    \qquad
+    \pi_F\colon\mathcal E_F\longrightarrow\g(2),
+    \quad (x,\mathfrak b)\longmapsto x.
+\]
+This is the incidence construction of \cite[Sections~2.1--2.4 and~3.7]{DLP}.
+
+\begin{proposition}\label{bundle}\label{smooth-family}
+    The incidence variety $\mathcal E_F$ is a vector subbundle of $\g(2)\times F\to F$, and $\pi_F$ is projective. Let $\mathcal O_F$ denote the trivial line bundle on $F$, and let $\mathbb P_F$ parametrize lines in a vector bundle over $F$. The projective bundle
+    \[
+        \overline{\mathcal E}_F
+            =\mathbb P_F(\mathcal E_F\oplus\mathcal O_F),
+    \]
+    is a smooth projective compactification of $\mathcal E_F$. If $F_e\ne\varnothing$, the restriction
+    \[
+        \pi_F^{-1}(L\cdot e)\longrightarrow L\cdot e
+    \]
+    is smooth and surjective, and $\pi_F^{-1}(L\cdot e)$ is dense in $\overline{\mathcal E}_F$. In particular, $F_e$ is smooth and projective.
+\end{proposition}
+
+\begin{proof}
+    There is an isomorphism over $F=L/B_L$,
+    \[
+        L\times^{B_L}(\g(2)\cap\mathfrak b_0)
+            \xrightarrow{\sim}\mathcal E_F,
+        \qquad
+        [g,x]\longmapsto(\Ad(g)x,\Ad(g)\mathfrak b_0).
+    \]
+    Here $(g,x)\sim(gb,\Ad(b^{-1})x)$ for $b\in B_L$. Zariski local sections of $L\to F$ show that this map is an isomorphism. The $B_L$-equivariant inclusion $\g(2)\cap\mathfrak b_0\hookrightarrow\g(2)$ identifies $\mathcal E_F$ with a vector subbundle of
+    \[
+        L\times^{B_L}\g(2)\simeq\g(2)\times F,
+        \qquad [g,x]\longmapsto(\Ad(g)x,gB_L).
+    \]
+    The total space of $\mathcal E_F$ is smooth and irreducible. Since $\mathcal E_F$ is closed in $\g(2)\times F$ and $F$ is projective, $\pi_F$ is projective.
+
+    Equivariance implies surjectivity over $L\cdot e$ whenever $F_e$ is nonempty. At a point above $x\in L\cdot e$, the image of the differential of $\pi_F$ contains the image of the infinitesimal orbit map
+    \[
+        \g(0)\longrightarrow\g(2),\qquad a\longmapsto[a,x].
+    \]
+    By Lemma~\ref{orbit}, this map is surjective. Since $\mathcal E_F$ and $\g(2)$ are smooth, $\pi_F$ is smooth over $L\cdot e$. Its fiber over $e$ is therefore reduced and is identified with $F_e$ by projection to $F$.
+
+    The projective bundle $\overline{\mathcal E}_F$ is smooth and projective. It contains $\mathcal E_F$ as the open subset where the $\mathcal O_F$-coordinate is nonzero. The inverse image of $L\cdot e$ is nonempty and open in the irreducible variety $\mathcal E_F$, hence dense in $\overline{\mathcal E}_F$.
+\end{proof}
+
+\vspace{2em}
+\section{The restriction theorem}
+\label{section-monodromy}
+
+For a complex variety $X$, let $\pi_0(X)$ be its set of connected components and $\pi_1(X,x)$ its topological fundamental group based at $x\in X$.
+
+\begin{lemma}\label{monodromy}
+    If $F_e\ne\varnothing$, then for every $k\ge0$, the monodromy representation of $\pi_F^{-1}(L\cdot e)\to L\cdot e$ on $H^k(F_e)$ has the same image as the $A(e)$-action. Thus
+    \[
+        H^k(F_e)^{\pi_1(L\cdot e,e)}=H^k(F_e)^{A(e)}.
+    \]
+\end{lemma}
+
+\begin{proof}
+    By Lemma~\ref{orbit}, the family is the associated bundle
+    \[
+        L\times^{Z_e} F_e\xrightarrow{\sim}\pi_F^{-1}(L\cdot e),\qquad
+        [g,\mathfrak b]\longmapsto(\Ad(g)e,\Ad(g)\mathfrak b)
+    \]
+    over $L/Z_e$, with $(g,\mathfrak b)\sim(gc,\Ad(c^{-1})\mathfrak b)$ for $c\in Z_e$. The analytic principal $Z_e$-bundle $L\to L/Z_e$ has local sections. A loop based at $e$ lifts to a path in $L$ from $1$ to an element $c\in Z_e$. Its transport on cohomology is $m_{c^{-1}}^*$, where $m_c\colon F_e\to F_e$ is the automorphism $\mathfrak b\mapsto\Ad(c)\mathfrak b$. Two lifts of the same loop starting at $1$ have endpoints in the same connected component of $Z_e$, so they induce the same cohomology operator. Conversely, since the Levi subgroup $L$ is connected, every $c\in Z_e$ can be joined to $1$ by a path in $L$ whose projection to $L/Z_e$ is a loop. The monodromy image is therefore the image of $Z_e/Z_e^\circ\simeq A(e)$.
+\end{proof}
+
+\begin{theorem}[Deligne]\label{cycles}
+    Let $p\colon\mathcal X\to Y$ be a smooth projective surjective morphism of complex varieties with $Y$ smooth and connected, and let $\overline{\mathcal X}$ be a smooth projective compactification of $\mathcal X$. For $y\in Y$, write $\mathcal X_y=p^{-1}(y)$. Then, for $k\ge0$,
+    \[
+        \im\bigl(H^k(\overline{\mathcal X})\longrightarrow H^k(\mathcal X_y)\bigr)
+            =H^k(\mathcal X_y)^{\pi_1(Y,y)}.
+    \]
+\end{theorem}
+
+This is \cite[Th\'eor\`eme~4.1.1(ii)]{Deligne}, after extension of scalars from $\mathbb Q$ to $\C$. The fibers need not be connected, and $p$ need not extend to $\overline{\mathcal X}$.
+
+\begin{proof}[Proof of Theorem~\ref{main}]
+    Fix $k\ge0$ and a connected component $F\subset\B^S$ with $F_e\ne\varnothing$. Since the triple centralizer $Z_e$ lies in the connected Levi subgroup $L$, it acts trivially on $H^*(F)$. Equivariance of $i_F$ implies
+    \[
+        \im(i_F^*)\subseteq H^*(F_e)^{A(e)}.
+    \]
+
+    Let $\alpha\in H^k(F_e)^{A(e)}$. By Lemma~\ref{monodromy}, it is invariant under the monodromy of the smooth projective family over $L\cdot e$. By Proposition~\ref{smooth-family}, $\overline{\mathcal E}_F$ is a smooth projective compactification of $\pi_F^{-1}(L\cdot e)$. Write $j_F\colon F_e\hookrightarrow\overline{\mathcal E}_F$ for the embedding $\mathfrak b\mapsto(e,\mathfrak b)$. By Theorem~\ref{cycles}, there exists $\beta\in H^k(\overline{\mathcal E}_F)$ such that $j_F^*\beta=\alpha$.
+
+    Let $\sigma_F\colon F\to\mathcal E_F\subset\overline{\mathcal E}_F$ be the zero section and put $\gamma=\sigma_F^*\beta$. The maps $\sigma_F\circ i_F$ and $j_F$ are homotopic through
+    \[
+        F_e\times[0,1]\longrightarrow\mathcal E_F,\qquad
+        (\mathfrak b,t)\longmapsto(te,\mathfrak b).
+    \]
+    This homotopy is well defined because $e\in\mathfrak b$ for $\mathfrak b\in F_e$. Hence
+    \[
+        i_F^*\gamma=(\sigma_F\circ i_F)^*\beta
+            =j_F^*\beta=\alpha.
+    \]
+    We have proved
+    \begin{equation}\label{componentwise}
+        \im\bigl(i_F^*\colon H^k(F)\longrightarrow H^k(F_e)\bigr)
+            =H^k(F_e)^{A(e)}.
+    \end{equation}
+    If $F_e=\varnothing$, both sides of \eqref{componentwise} vanish. Since $Z_e\subset L$, it preserves each $F$ and $F_e$. Taking the direct sum of \eqref{componentwise} over the connected components $F$ of $\B^S$ proves the assertion in every degree. Restriction preserves cup products, so the equality respects the algebra structures.\qedhere
+\end{proof}
+
+The action of $Z_e$ on $\pi_0(\B_e^S)$ factors through $A(e)$, since $Z_e^\circ$ is connected.
+
+\begin{corollary}\label{transitive}
+    For every connected component $F$ of $\B^S$ with $F_e\ne\varnothing$, the group $A(e)$ acts transitively on the connected components of $F_e$. In particular, $F_e$ is connected if $A(e)$ is trivial.
+\end{corollary}
+
+\begin{proof}
+    By \eqref{componentwise}, we have $H^0(F_e)^{A(e)}=\C$. The left-hand side identifies with the algebra of functions on $\pi_0(F_e)/A(e)$, so this orbit set has one element.
+\end{proof}
+
+This transitivity is also proved in \cite[Lemma~2.2(iii)]{DLP}.
+
+\begin{corollary}\label{generators}
+    The algebra $H^*(\B_e^S)^{A(e)}$ is generated by its degree-zero and degree-two parts. In particular,
+    \[
+        H^{2j+1}(\B_e^S)^{A(e)}=0\qquad(j\ge0).
+    \]
+\end{corollary}
+
+\begin{proof}
+    For each connected component $F$ of $\B^S$, choose a Borel subgroup $B_L\subset L$ so that $F\simeq L/B_L$. Let $X^*(B_L)$ be its character group and, for $\chi\in X^*(B_L)$, let $\C_\chi$ be the one-dimensional $B_L$-module with character $\chi$. Writing $\Sym$ for the symmetric algebra over $\C$ and $c_1$ for the first Chern class, Borel's characteristic homomorphism
+    \[
+        \Sym\bigl(X^*(B_L)\otimes_{\Z}\C\bigr)
+            \longrightarrow H^*(F),\qquad
+        \chi\longmapsto c_1(L\times^{B_L}\C_\chi),
+    \]
+    is surjective \cite{Borel}. The generators $X^*(B_L)\otimes_{\Z}\C$ have degree two. This applies to the connected reductive group $L$, since a finite central cover induces an isomorphism of flag varieties and an isomorphism of character spaces after tensoring with $\C$. Thus $H^*(\B^S)$ is generated by these Chern classes and the idempotents corresponding to its connected components. Apply Theorem~\ref{main}.
+\end{proof}
+
+The stronger vanishing $H^{2j+1}(\B_e^S)=0$ is proved in \cite[Theorem~3.9]{DLP}. For $e\ne0$, apply their theorem to $s=\lambda(t)$ with $t$ not a root of unity. The fixed point locus $\B_e^s$ of $s$ then equals $\B_e^S$. The case $e=0$ is the usual vanishing for $\B$.
+
+Sending a connected component of $\B_e^S$ to the connected component of $\B^S$ containing it induces, by Corollary~\ref{transitive}, a bijection
+\[
+    \pi_0(\B_e^S)/A(e)
+    \xrightarrow{\sim}
+    \{F\in\pi_0(\B^S)\mid F_e\ne\varnothing\}.
+\]
+
+\begin{corollary}\label{type-a-surjective}
+    If $G=\GL_n$, then the pullback map
+    \[
+        i^*\colon H^*(\B^S)\longrightarrow H^*(\B_e^S)
+    \]
+    is surjective.
+\end{corollary}
+
+\begin{proof}
+    The centralizer $Z_G(e)=Z_G(1+e)$ is connected \cite[III,~3.22]{SS} (see also \cite[Section~7.7]{Springer76}). Hence $A(e)=1$, and the assertion follows from Theorem~\ref{main}.
+\end{proof}
+
+\vspace{1em}
+\begin{thebibliography}{99}
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+
+    \bibitem[Bor53]{Borel}
+    A.~Borel, Sur la cohomologie des espaces fibr\'es principaux et des espaces
+    homog\`enes de groupes de Lie compacts,
+    \emph{Ann. of Math.} (2) \textbf{57} (1953), 115--207.
+
+    \bibitem[DCP81]{DCP}
+    C.~De Concini and C.~Procesi,
+    Symmetric functions, conjugacy classes and the flag variety,
+    \emph{Invent. Math.} \textbf{64} (1981), 203--219.
+
+    \bibitem[Del71]{Deligne}
+    P.~Deligne, Th\'eorie de Hodge.~II,
+    \emph{Publ. Math. IH\'ES} \textbf{40} (1971), 5--57.
+
+    \bibitem[DLP88]{DLP}
+    C.~De Concini, G.~Lusztig, and C.~Procesi,
+    Homology of the zero-set of a nilpotent vector field on a flag manifold,
+    \emph{J. Amer. Math. Soc.} \textbf{1} (1988), 15--34.
+
+    \bibitem[HKM24]{HKM}
+    D.~K.~Hoang, V.~Krylov, and D.~Matvieievskyi,
+    Around Hikita--Nakajima conjecture for nilpotent orbits and parabolic
+    Slodowy varieties,
+    \href{https://arxiv.org/abs/2410.20512v1}{arXiv 2410.20512v1}
+    [math.RT] (2024).
+
+    \bibitem[Hum75]{Humphreys}
+    J.~E.~Humphreys, \emph{Linear Algebraic Groups},
+    Graduate Texts in Mathematics, vol.~21,
+    Springer-Verlag, New York--Heidelberg, 1975.
+
+    \bibitem[OY16]{OY}
+    A.~Oblomkov and Z.~Yun,
+    Geometric representations of graded and rational Cherednik algebras,
+    \emph{Adv. Math.} \textbf{292} (2016), 601--706.
+
+    \bibitem[PS25]{PS}
+    M.~Precup and E.~Sommers,
+    Perverse sheaves, nilpotent Hessenberg varieties, and the modular law,
+    \emph{Pure Appl. Math. Q.} \textbf{21} (2025), no.~1, 495--540.
+
+    \bibitem[Spr76]{Springer76}
+    T.~A.~Springer,
+    Trigonometric sums, Green functions of finite groups and representations of Weyl groups,
+    \emph{Invent. Math.} \textbf{36} (1976), 173--207.
+
+    \bibitem[SS70]{SS}
+    T.~A.~Springer and R.~Steinberg,
+    \href{https://doi.org/10.1007/BFb0081546}{Conjugacy classes},
+    in \emph{Seminar on Algebraic Groups and Related Finite Groups},
+    Lecture Notes in Mathematics, vol.~131,
+    Springer-Verlag, Berlin, 1970, pp.~167--266.
+
+    \bibitem[Tan82]{Tanisaki}
+    T.~Tanisaki,
+    Defining ideals of the closures of the conjugacy classes and representations of the Weyl groups,
+    \emph{Tohoku Math. J.} (2) \textbf{34} (1982), 575--585.
+
+\end{thebibliography}
+
+\end{document}

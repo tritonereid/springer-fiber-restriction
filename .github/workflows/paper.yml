@@ -1,0 +1,73 @@
+name: Compile and publish manuscript
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manuscript-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Compile manuscript
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set manuscript timestamp
+        run: |
+          echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct -- source)" >> "$GITHUB_ENV"
+          echo "FORCE_SOURCE_DATE=1" >> "$GITHUB_ENV"
+          echo "TZ=UTC" >> "$GITHUB_ENV"
+
+      - name: Install TeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-latex-base texlive-latex-recommended texlive-latex-extra lmodern latexmk
+
+      - name: Compile manuscript
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error -outdir=build source/A_Restriction_Theorem_for_Springer_Fibers.tex
+
+      - name: Save compiled manuscript
+        uses: actions/upload-artifact@v7
+        with:
+          name: manuscript-pdf
+          path: build/A_Restriction_Theorem_for_Springer_Fibers.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+  publish:
+    name: Update reading copy and archive version
+    needs: build
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: manuscript-pdf
+          path: release
+
+      - name: Publish manuscript PDF
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: python3 scripts/publish_pdf.py release/A_Restriction_Theorem_for_Springer_Fibers.pdf

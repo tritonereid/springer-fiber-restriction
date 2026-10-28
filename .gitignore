@@ -1,0 +1,15 @@
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bak
+*~
+.DS_Store
+/build/
+__pycache__/
+Thumbs.db
